@@ -60,7 +60,7 @@ const Hero = () => {
     const setupVideoScroll = () => {
       if (video.duration) {
         const startValue = isMobile ? "top 50%" : "center 60%";
-        const endValue = isMobile ? "120% top" : "bottom top";
+        const endValue = isMobile ? "250% top" : "bottom top";
 
         // ابتدا مطمئن شوید ویدیو از ابتدا شروع می‌شود
         video.currentTime = 0;
@@ -72,6 +72,12 @@ const Hero = () => {
             end: endValue,
             scrub: true,
             pin: true,
+            onRefresh: () => {
+              // هنگام refresh مجدداً از ابتدا شروع کند
+              if (video.currentTime > 0) {
+                video.currentTime = 0;
+              }
+            },
           },
         });
 
@@ -88,7 +94,6 @@ const Hero = () => {
       // منتظر لود شدن metadata
       video.onloadedmetadata = setupVideoScroll;
     }
-
   }, []);
 
   return (
@@ -108,7 +113,7 @@ const Hero = () => {
         />
 
         <div className="body">
-          {/* <img src="/images/arrow.png" alt="arrow" className="arrow" /> */}
+          <img src="/images/arrow.png" alt="arrow" className="arrow" />
 
           <div className="content">
             <div className="space-y-5 hidden md:block">
